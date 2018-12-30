@@ -2,7 +2,6 @@
 #load relevant libraries
 #install.packages("tidycensus")
 library(tidycensus)
-library(tidyverse)
 
 #my census key
 #my_key <- census_api_key("7e17eb37151215db6ed133db6d107bb6143a9e37", install = TRUE)
