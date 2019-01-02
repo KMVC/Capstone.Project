@@ -10,7 +10,7 @@ schools2014 <-  read.csv("Chicagoschools2014.csv", na = c("", "NA"))
 allzips <- read.csv("allzips.csv")
 
 
-#eliminate all schools from schools2016 that are not elementary schools (high schools and middle schools)
+#eliminate all schools from schools2015 schools2016 that are not elementary schools (high schools and middle schools)
 schools2015 <-  filter(schools2015, Primary_Category == "ES")
 schools2016 <-  filter(schools2016, Primary_Category == "ES")
 
@@ -23,8 +23,11 @@ colnames(schools2016)[2:3] <- paste("2016", colnames(schools2016)[2:3], sep = "_
 
 
 #eliminate un-needed columns from schools2015
-schools2015 <-  select(schools2015, ï..School_ID, Zip,
-                       NWEA_Reading_Attainment_Grade_3_Pct, NWEA_Math_Attainment_Grade_3_Pct)
+schools2015 <-  select(schools2015, 
+                       ï..School_ID, 
+                       Zip,
+                       NWEA_Reading_Attainment_Grade_3_Pct, 
+                       NWEA_Math_Attainment_Grade_3_Pct)
 
 
 #put label on some columns marking them as 2015
@@ -43,33 +46,104 @@ schools201516 <- full_join(schools201516, allzips, by = c( "Zip" = "Zips"))
 
 #my_key <- census_api_key("7e17eb37151215db6ed133db6d107bb6143a9e37", install = TRUE)
 
-#load variables 
-v15 <-  load_variables(2015, "acs5", cache = TRUE)
-
 #creating my census key
 #my_key <- census_api_key("7e17eb37151215db6ed133db6d107bb6143a9e37", install = TRUE)
 
 v15 <-  load_variables(2015, "acs5", cache = TRUE)
-View(v15)
 
+#AGE
 #median age by zip code
 median_age <- get_acs(geography = "zcta", variables =  "B01002_001")
+
+#eliminate un-needed columns from median_age
+median_age <-  select(median_age, GEOID, estimate, moe)
+
+#add labels to median_age
+colnames(median_age)[2:3] <- paste("median age", colnames(median_age)[2:3], sep = "_")
+
+#turning data in GEOID into integer class
+median_age$GEOID <- as.integer(median_age$GEOID)
+
+
+#bring together the 20152016 table with the dataset on median age
+schools201516 <- inner_join(schools201516, median_age, by = c( "Zip" = "GEOID")) 
 
 #RACE by zip code
 #estimate of total population of 2 or more races
 two_race_or_more <- get_acs(geography = "zcta", variables =  "C02003_010")
 
+#eliminate un-needed columns from two_race_or_more
+two_race_or_more <-  select(two_race_or_more, GEOID, estimate, moe)
+
+#add labels to 2 races or more
+colnames(two_race_or_more)[2:3] <- paste("multiracial population", colnames(two_race_or_more)[2:3], sep = "_")
+
+#turning data in GEOID into integer class
+two_race_or_more$GEOID <- as.integer(two_race_or_more$GEOID)
+
+
+#bring together the 20152016 table with the dataset on 2 or more races
+schools201516 <- inner_join(schools201516, two_race_or_more, by = c( "Zip" = "GEOID")) 
+
 #estimate of total population of race who are solely white
 white <- get_acs(geography = "zcta", variables =  "C02003_003")
+
+#eliminate un-needed columns from white
+white <-  select(white, GEOID, estimate, moe)
+
+#add labels to white
+colnames(white)[2:3] <- paste("white population", colnames(white)[2:3], sep = "_")
+
+#turning data in GEOID into integer class
+white$GEOID <- as.integer(white$GEOID)
+
+#bring together the 20152016 table with the dataset on white
+schools201516 <- inner_join(schools201516, white, by = c( "Zip" = "GEOID")) 
 
 #estimate of total population of race who are solely african-american
 black <- get_acs(geography = "zcta", variables =  "C02003_004")
 
+#eliminate un-needed columns from black
+black <-  select(black, GEOID, estimate, moe)
+
+#add labels to black
+colnames(black)[2:3] <- paste("black population", colnames(black)[2:3], sep = "_")
+
+#turning data in GEOID into integer class
+black$GEOID <- as.integer(black$GEOID)
+
+#bring together the 20152016 table with the dataset on black
+schools201516 <- inner_join(schools201516, black, by = c( "Zip" = "GEOID")) 
+
 #estimate of total population by race who are hispanic
 hispanic <- get_acs(geography = "zcta", variables =  "B03002_012")
 
+#eliminate un-needed columns from hispanic
+hispanic <-  select(hispanic, GEOID, estimate, moe)
+
+#add labels to hispanic
+colnames(hispanic)[2:3] <- paste("hispanic population", colnames(hispanic)[2:3], sep = "_")
+
+#turning data in GEOID into integer class
+hispanic$GEOID <- as.integer(hispanic$GEOID)
+
+#bring together the 20152016 table with the dataset on hispanic
+schools201516 <- inner_join(schools201516, hispanic, by = c( "Zip" = "GEOID")) 
+
 #estimate of total population by race who are asian
 asian <- get_acs(geography = "zcta", variables =  "C02003_006")
+
+#eliminate un-needed columns from hispanic
+hispanic <-  select(hispanic, GEOID, estimate, moe)
+
+#add labels to hispanic
+colnames(hispanic)[2:3] <- paste("hispanic population", colnames(hispanic)[2:3], sep = "_")
+
+#turning data in GEOID into integer class
+hispanic$GEOID <- as.integer(hispanic$GEOID)
+
+#bring together the 20152016 table with the dataset on hispanic
+schools201516 <- inner_join(schools201516, hispanic, by = c( "Zip" = "GEOID")) 
 
 #NATIVE OR FOREIGN-Born, children and parents
 #estimate of # of children 6-18 years old, living with 2 parents, child is native born
