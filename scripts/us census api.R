@@ -4,7 +4,7 @@ install.packages("tidycensus")
 library(tidyverse)
 library(tidycensus)
 
-my_key <- census_api_key("7e17eb37151215db6ed133db6d107bb6143a9e37", install = TRUE)
+#my_key <- census_api_key("7e17eb37151215db6ed133db6d107bb6143a9e37", install = TRUE)
 
 #load variables
 v15 <-  load_variables(2015, "acs5", cache = TRUE)
