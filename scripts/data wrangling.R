@@ -10,7 +10,8 @@ schools2014 <-  read.csv("Chicagoschools2014.csv", na = c("", "NA"))
 allzips <- read.csv("allzips.csv")
 
 
-#eliminate all schools from schools2015 schools2016 that are not elementary schools (high schools and middle schools)
+#eliminate all schools from schools2015 schools2016 that are not elementary schools 
+#(high schools and middle schools)
 schools2015 <-  filter(schools2015, Primary_Category == "ES")
 schools2016 <-  filter(schools2016, Primary_Category == "ES")
 
@@ -76,7 +77,8 @@ two_race_or_more <- get_acs(geography = "zcta", variables =  "C02003_010")
 two_race_or_more <-  select(two_race_or_more, GEOID, estimate, moe)
 
 #add labels to 2 races or more
-colnames(two_race_or_more)[2:3] <- paste("multiracial population", colnames(two_race_or_more)[2:3], sep = "_")
+colnames(two_race_or_more)[2:3] <- paste("multiracial population", 
+                                         colnames(two_race_or_more)[2:3], sep = "_")
 
 #turning data in GEOID into integer class
 two_race_or_more$GEOID <- as.integer(two_race_or_more$GEOID)
@@ -122,7 +124,8 @@ hispanic <- get_acs(geography = "zcta", variables =  "B03002_012")
 hispanic <-  select(hispanic, GEOID, estimate, moe)
 
 #add labels to hispanic
-colnames(hispanic)[2:3] <- paste("hispanic population", colnames(hispanic)[2:3], sep = "_")
+colnames(hispanic)[2:3] <- paste("hispanic population", 
+                                 colnames(hispanic)[2:3], sep = "_")
 
 #turning data in GEOID into integer class
 hispanic$GEOID <- as.integer(hispanic$GEOID)
@@ -137,7 +140,8 @@ asian <- get_acs(geography = "zcta", variables =  "C02003_006")
 asian <-  select(asian, GEOID, estimate, moe)
 
 #add labels to asian
-colnames(asian)[2:3] <- paste("asian population", colnames(asian)[2:3], sep = "_")
+colnames(asian)[2:3] <- paste("asian population", 
+                              colnames(asian)[2:3], sep = "_")
 
 #turning data in GEOID into integer class
 asian$GEOID <- as.integer(asian$GEOID)
@@ -475,7 +479,8 @@ schools201516 <-  select(schools201516, -Zip)
 
 #remove un-needed columns from schools2014
 schools2014 <-  select(schools2014, Name.of.School, Supportive.Environment,
-                       Ambitious.Instruction, Effective.Leaders, Collaborative.Teachers, Safe, Involved.Family, NWEA.Reading.Attainment.Percentile.Grade.3, 
+                       Ambitious.Instruction, Effective.Leaders, Collaborative.Teachers, Safe,
+                       Involved.Family, NWEA.Reading.Attainment.Percentile.Grade.3, 
                        NWEA.Math.Attainment.Percentile.Grade.3, Location,
                        ï..School.ID)
 
