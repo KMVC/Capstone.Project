@@ -10,8 +10,7 @@ schools2014 <-  read.csv("Chicagoschools2014.csv", na = c("", "NA"))
 allzips <- read.csv("allzips.csv")
 
 
-#eliminate all schools from schools2015 schools2016 that are not elementary schools 
-#(high schools and middle schools)
+#eliminate all schools from schools2015 schools2016 that are not elementary schools (high schools and middle schools)
 schools2015 <-  filter(schools2015, Primary_Category == "ES")
 schools2016 <-  filter(schools2016, Primary_Category == "ES")
 
@@ -77,8 +76,7 @@ two_race_or_more <- get_acs(geography = "zcta", variables =  "C02003_010")
 two_race_or_more <-  select(two_race_or_more, GEOID, estimate, moe)
 
 #add labels to 2 races or more
-colnames(two_race_or_more)[2:3] <- paste("multiracial population", 
-                                         colnames(two_race_or_more)[2:3], sep = "_")
+colnames(two_race_or_more)[2:3] <- paste("multiracial population", colnames(two_race_or_more)[2:3], sep = "_")
 
 #turning data in GEOID into integer class
 two_race_or_more$GEOID <- as.integer(two_race_or_more$GEOID)
@@ -124,8 +122,7 @@ hispanic <- get_acs(geography = "zcta", variables =  "B03002_012")
 hispanic <-  select(hispanic, GEOID, estimate, moe)
 
 #add labels to hispanic
-colnames(hispanic)[2:3] <- paste("hispanic population", 
-                                 colnames(hispanic)[2:3], sep = "_")
+colnames(hispanic)[2:3] <- paste("hispanic population", colnames(hispanic)[2:3], sep = "_")
 
 #turning data in GEOID into integer class
 hispanic$GEOID <- as.integer(hispanic$GEOID)
@@ -140,8 +137,7 @@ asian <- get_acs(geography = "zcta", variables =  "C02003_006")
 asian <-  select(asian, GEOID, estimate, moe)
 
 #add labels to asian
-colnames(asian)[2:3] <- paste("asian population", 
-                              colnames(asian)[2:3], sep = "_")
+colnames(asian)[2:3] <- paste("asian population", colnames(asian)[2:3], sep = "_")
 
 #turning data in GEOID into integer class
 asian$GEOID <- as.integer(asian$GEOID)
@@ -173,7 +169,7 @@ native_child_1_parent <-  select(native_child_1_parent, GEOID, estimate, moe)
 
 #add labels to native child 1 parent
 colnames(native_child_1_parent)[2:3] <- paste("native child, 6-18, living with 1 parent population",
-                                               colnames(native_child_1_parent)[2:3], sep = "_")
+                                              colnames(native_child_1_parent)[2:3], sep = "_")
 #turning data in GEOID into integer class
 native_child_1_parent$GEOID <- as.integer(native_child_1_parent$GEOID)
 
@@ -188,7 +184,7 @@ foreign_child_2_parents <-  select(foreign_child_2_parents, GEOID, estimate, moe
 
 #add labels to foreign child 2 parents
 colnames(foreign_child_2_parents)[2:3] <- paste("foreign-born child, 6-18, living with 2 parents population",
-                                              colnames(foreign_child_2_parents)[2:3], sep = "_")
+                                                colnames(foreign_child_2_parents)[2:3], sep = "_")
 #turning data in GEOID into integer class
 foreign_child_2_parents$GEOID <- as.integer(foreign_child_2_parents$GEOID)
 
@@ -203,7 +199,7 @@ foreign_child_1_parent <-  select(foreign_child_1_parent, GEOID, estimate, moe)
 
 #add labels to foreign child 1 parent
 colnames(foreign_child_1_parent)[2:3] <- paste("foreign-born child, 6-18, living with 1 parent population",
-                                                colnames(foreign_child_1_parent)[2:3], sep = "_")
+                                               colnames(foreign_child_1_parent)[2:3], sep = "_")
 #turning data in GEOID into integer class
 foreign_child_1_parent$GEOID <- as.integer(foreign_child_1_parent$GEOID)
 
@@ -218,7 +214,7 @@ two_native_parents <-  select(two_native_parents, GEOID, estimate, moe)
 
 #add labels to child 2 native parents
 colnames(two_native_parents)[2:3] <- paste("child, 6-18, living with 2 native parents population",
-                                               colnames(two_native_parents)[2:3], sep = "_")
+                                           colnames(two_native_parents)[2:3], sep = "_")
 #turning data in GEOID into integer class
 two_native_parents$GEOID <- as.integer(two_native_parents$GEOID)
 
@@ -233,7 +229,7 @@ one_native_parent <-  select(one_native_parent, GEOID, estimate, moe)
 
 #add labels to child 1 native parent
 colnames(one_native_parent)[2:3] <- paste("child, 6-18, living with 1 native parent population",
-                                           colnames(one_native_parent)[2:3], sep = "_")
+                                          colnames(one_native_parent)[2:3], sep = "_")
 #turning data in GEOID into integer class
 one_native_parent$GEOID <- as.integer(one_native_parent$GEOID)
 
@@ -248,7 +244,7 @@ two_foreign_born_parents<-  select(two_foreign_born_parents, GEOID, estimate, mo
 
 #add labels to child 2 foreign born parent
 colnames(two_foreign_born_parents)[2:3] <- paste("child, 6-18, living with 2 foreign-born parents population",
-                                          colnames(two_foreign_born_parents)[2:3], sep = "_")
+                                                 colnames(two_foreign_born_parents)[2:3], sep = "_")
 #turning data in GEOID into integer class
 two_foreign_born_parents$GEOID <- as.integer(two_foreign_born_parents$GEOID)
 
@@ -263,7 +259,7 @@ one_foreign_born_parent<-  select(one_foreign_born_parent, GEOID, estimate, moe)
 
 #add labels to child 1 foreign born parent
 colnames(one_foreign_born_parent)[2:3] <- paste("child, 6-18, living with 1 foreign-born parent population",
-                                                 colnames(one_foreign_born_parent)[2:3], sep = "_")
+                                                colnames(one_foreign_born_parent)[2:3], sep = "_")
 #turning data in GEOID into integer class
 one_foreign_born_parent$GEOID <- as.integer(one_foreign_born_parent$GEOID)
 
@@ -279,7 +275,7 @@ child_only_parent<-  select(child_only_parent, GEOID, estimate, moe)
 
 #add labels to child 1  parent
 colnames(child_only_parent)[2:3] <- paste("child, 6-18, living with 1 parent population",
-                                                colnames(child_only_parent)[2:3], sep = "_")
+                                          colnames(child_only_parent)[2:3], sep = "_")
 #turning data in GEOID into integer class
 child_only_parent$GEOID <- as.integer(child_only_parent$GEOID)
 
@@ -310,7 +306,7 @@ speak_only_english<-  select(speak_only_english, GEOID, estimate, moe)
 
 #add labels to only English
 colnames(speak_only_english)[2:3] <- paste("population only speaks English",
-                                          colnames(speak_only_english)[2:3], sep = "_")
+                                           colnames(speak_only_english)[2:3], sep = "_")
 #turning data in GEOID into integer class
 speak_only_english$GEOID <- as.integer(speak_only_english$GEOID)
 
@@ -325,7 +321,7 @@ speak_spanish_not_great_english<-  select(speak_spanish_not_great_english, GEOID
 
 #add labels to speak Spanish, not great English
 colnames(speak_spanish_not_great_english)[2:3] <- paste("population speaks Spanish, low English skills",
-                                           colnames(speak_spanish_not_great_english)[2:3], sep = "_")
+                                                        colnames(speak_spanish_not_great_english)[2:3], sep = "_")
 #turning data in GEOID into integer class
 speak_spanish_not_great_english$GEOID <- as.integer(speak_spanish_not_great_english$GEOID)
 
@@ -341,7 +337,7 @@ total_unemployed<-  select(total_unemployed, GEOID, estimate, moe)
 
 #add labels unemployed
 colnames(total_unemployed)[2:3] <- paste("unemployed, 18-64, population",
-                                                        colnames(total_unemployed)[2:3], sep = "_")
+                                         colnames(total_unemployed)[2:3], sep = "_")
 #turning data in GEOID into integer class
 total_unemployed$GEOID <- as.integer(total_unemployed$GEOID)
 
@@ -356,7 +352,7 @@ total_employed<-  select(total_employed, GEOID, estimate, moe)
 
 #add labels employed
 colnames(total_employed)[2:3] <- paste("total employed population",
-                                         colnames(total_employed)[2:3], sep = "_")
+                                       colnames(total_employed)[2:3], sep = "_")
 #turning data in GEOID into integer class
 total_employed$GEOID <- as.integer(total_employed$GEOID)
 
@@ -372,7 +368,7 @@ below_poverty_received_stamps<-  select(below_poverty_received_stamps, GEOID, es
 
 #add labels poor got food stamps
 colnames(below_poverty_received_stamps)[2:3] <- paste("poor and received food stamps",
-                                       colnames(below_poverty_received_stamps)[2:3], sep = "_")
+                                                      colnames(below_poverty_received_stamps)[2:3], sep = "_")
 #turning data in GEOID into integer class
 below_poverty_received_stamps$GEOID <- as.integer(below_poverty_received_stamps$GEOID)
 
@@ -402,7 +398,7 @@ below_poverty_no_stamps<-  select(below_poverty_no_stamps, GEOID, estimate, moe)
 
 #add labels below poverty level and no food stamps
 colnames(below_poverty_no_stamps)[2:3] <- paste("poor, no food stamps",
-                                                      colnames(below_poverty_no_stamps)[2:3], sep = "_")
+                                                colnames(below_poverty_no_stamps)[2:3], sep = "_")
 #turning data in GEOID into integer class
 below_poverty_no_stamps$GEOID <- as.integer(below_poverty_no_stamps$GEOID)
 
@@ -433,7 +429,7 @@ renting <-  select(renting, GEOID, estimate, moe)
 
 #add labels renting
 colnames(renting)[2:3] <- paste("rental units",
-                                     colnames(renting)[2:3], sep = "_")
+                                colnames(renting)[2:3], sep = "_")
 #turning data in GEOID into integer class
 renting$GEOID <- as.integer(renting$GEOID)
 
@@ -448,7 +444,7 @@ owning <-  select(owning, GEOID, estimate, moe)
 
 #add labels owning
 colnames(owning)[2:3] <- paste("owned units",
-                                colnames(owning)[2:3], sep = "_")
+                               colnames(owning)[2:3], sep = "_")
 
 #turning data in GEOID into integer class
 owning$GEOID <- as.integer(owning$GEOID)
@@ -465,7 +461,7 @@ earnings <-  select(earnings, GEOID, estimate, moe)
 
 #add labels earnings
 colnames(earnings)[2:3] <- paste("aggregate earnings",
-                               colnames(earnings)[2:3], sep = "_")
+                                 colnames(earnings)[2:3], sep = "_")
 
 #turning data in GEOID into integer class
 earnings$GEOID <- as.integer(earnings$GEOID)
@@ -479,8 +475,7 @@ schools201516 <-  select(schools201516, -Zip)
 
 #remove un-needed columns from schools2014
 schools2014 <-  select(schools2014, Name.of.School, Supportive.Environment,
-                       Ambitious.Instruction, Effective.Leaders, Collaborative.Teachers, Safe,
-                       Involved.Family, NWEA.Reading.Attainment.Percentile.Grade.3, 
+                       Ambitious.Instruction, Effective.Leaders, Collaborative.Teachers, Safe, Involved.Family, NWEA.Reading.Attainment.Percentile.Grade.3, 
                        NWEA.Math.Attainment.Percentile.Grade.3, Location,
                        ï..School.ID)
 
@@ -534,17 +529,72 @@ col_order <- c("Name.of.School",
                "total employed population_estimate",  
                "rental units_estimate",  
                "owned units_estimate", 
-                "aggregate earnings_estimate",
-                "2014_NWEA.Reading.Attainment.Percentile.Grade.3", 
-                "2015_NWEA_Reading_Attainment_Grade_3_Pct", 
-                "2016_NWEA_Reading_Attainment_Grade_3_Pct", 
-                "2014_NWEA.Math.Attainment.Percentile.Grade.3", 
-                "2015_NWEA_Math_Attainment_Grade_3_Pct", 
-                "2016_NWEA_Math_Attainment_Grade_3_Pct",
-                "Longitude", 
-                "Latitude")
+               "aggregate earnings_estimate",
+               "2014_NWEA.Reading.Attainment.Percentile.Grade.3", 
+               "2015_NWEA_Reading_Attainment_Grade_3_Pct", 
+               "2016_NWEA_Reading_Attainment_Grade_3_Pct", 
+               "2014_NWEA.Math.Attainment.Percentile.Grade.3", 
+               "2015_NWEA_Math_Attainment_Grade_3_Pct", 
+               "2016_NWEA_Math_Attainment_Grade_3_Pct",
+               "Longitude", 
+               "Latitude")
 
 schools14_16 <- schools14_16[, col_order]
+
+#correlations for Reading percentiles
+#removing na values
+schools1416b <- na.omit(schools14_16)
+#creating matrix for correlation, demographic info are rows, percentiles for 2016 are columns
+x <- schools1416b[8:38]
+y <- schools1416b[39]
+cor(x, y)
+
+#median income, native children living with 1 parent, children living with 1 native parent, living with one
+#foreign parent, living with 1 parent, poor who received food stamps,above poor who received food stamps,
+#2014 reading and 2015 reading percentiles were most correlated with 2016 reading percentiles
+# (only income and 2014, 2015 are over 0.5)
+
+#correlations for Math scores
+#creating matrix for correlation
+w <- schools1416b[8:36]
+k <- schools1416b[40:41]
+z <-  schools1416b[42]
+#correlating demographic info with 2016 math percentiles
+cor(w,z)
+#correlating 2014 and 2015 math percentiles with 2016 math percentiles
+cor(k,z)
+
+#median income, black pop, native child 1 parent, 1 native parent, living with 1 parent, poor who received food stamps,
+#2014 and 2015 math percentiles were most strongly correlated with 2016 percentiles
+#only income, 2014 and 2015 percentiles are over 0.5, in terms of correlation
+
+#based on this correlations, can see weakest are:
+#for 2016 Reading:
+#multiracial pop
+#native children living with 2 parents
+#foreign born childre living with 2 parents
+#foreign children living with 1 parent
+#children living with 2 foreign parents
+# living with 2 parents
+#speaking only english
+#rental units
+
+#based on these correlations, can see weakest variables are:
+#for 2016 Math
+#hispanic pop estimate
+#native children living with 2 parents
+#children living with 2 foreign born parents
+#children living with 1 foreign born parent
+#living with 2 parents
+#spanish speaking pop
+#poor who did not receive food stamps
+
+#can remove these variables from dataset:
+#native children living with 2 parents
+#children living with 2 parents
+
+schools14_16 <- schools14_16[,(-16)]
+schools14_16 <- schools14_16[,(-24)]
 
 #fixing the column names
 colnames(schools14_16)[colnames(schools14_16)=="Supportive.Environment"] <- "Environment Rating"
@@ -587,8 +637,6 @@ colnames(schools14_16)[colnames(schools14_16)=="hispanic population_estimate"] <
 
 colnames(schools14_16)[colnames(schools14_16)=="asian population_estimate"] <- "Asian Pop. Estimate"
 
-colnames(schools14_16)[colnames(schools14_16)=="native child, 6-18, living with 2 parents population_estimate"] <- "Estimate of Native-born Children 6-18, Living with 2 Parents"
-
 colnames(schools14_16)[colnames(schools14_16)=="native child, 6-18, living with 1 parent population_estimate"] <- "Estimate of Native-born Children, 6-18, Living with 1 Parent"
 
 colnames(schools14_16)[colnames(schools14_16)=="foreign-born child, 6-18, living with 2 parents population_estimate"] <- "Estimate of Foreign-born Children, 6-18, Living with 2 Parents"
@@ -604,8 +652,6 @@ colnames(schools14_16)[colnames(schools14_16)=="child, 6-18, living with 2 forei
 colnames(schools14_16)[colnames(schools14_16)=="child, 6-18, living with 1 foreign-born parent population_estimate"] <- "Estimate of Children, 6-18, Living with 1 Foreign-Born Parent"
 
 colnames(schools14_16)[colnames(schools14_16)=="child, 6-18, living with 1 parent population_estimate"] <- "Estimate of Children, 6-18, Living with 1 Parent"
-
-colnames(schools14_16)[colnames(schools14_16)=="child, 6-18, living with 2 parents population_estimate"] <- "Estimate of Children, 6-18, Living with 2 Parents"
 
 colnames(schools14_16)[colnames(schools14_16)=="population only speaks English_estimate"] <- "Estimate of Pop. Speaking only English"
 
@@ -631,4 +677,5 @@ colnames(schools14_16)[colnames(schools14_16)=="aggregate earnings_estimate"] <-
 
 #save the data
 write.csv(schools14_16, file = "schools14_16.csv")
+
 
