@@ -44,8 +44,6 @@ schools201516 <- full_join(schools201516, allzips, by = c( "Zip" = "Zips"))
 #finding and pulling demographic data from the American Community Survey 2012-2015 (ACS)
 #all data pulled by zip code, estimate are of total population
 
-#my_key <- census_api_key("7e17eb37151215db6ed133db6d107bb6143a9e37", install = TRUE)
-
 #creating my census key
 #my_key <- census_api_key("7e17eb37151215db6ed133db6d107bb6143a9e37", install = TRUE)
 
@@ -67,6 +65,54 @@ median_age$GEOID <- as.integer(median_age$GEOID)
 
 #bring together the 20152016 table with the dataset on median age
 schools201516 <- inner_join(schools201516, median_age, by = c( "Zip" = "GEOID")) 
+
+#TOTAL POPULATION
+#total pop by zip code
+total_pop <- get_acs(geography = "zcta", variables =  "B00001_001")
+
+#eliminate un-needed columns from total pop
+total_pop <-  select(total_pop, GEOID, estimate)
+
+#add labels to total pop
+colnames(total_pop)[2] <- paste("total pop", colnames(total_pop)[2], sep = "_")
+
+#turning data in GEOID into integer class
+total_pop$GEOID <- as.integer(total_pop$GEOID)
+
+#bring together the 20152016 table with the dataset on total pop
+schools201516 <- inner_join(schools201516, total_pop, by = c( "Zip" = "GEOID")) 
+
+#GENDER by zip code
+#female by zip code
+female <-  get_acs(geography = "zcta", variables =  "B05003_013")
+
+#eliminate un-needed columns from female
+female <-  select(female, GEOID, estimate, moe)
+
+#add labels to female
+colnames(female)[2:3] <- paste("female", colnames(female)[2:3], sep = "_")
+
+#turning data in GEOID into integer class
+female$GEOID <- as.integer(female$GEOID)
+
+#bring together the 20152016 table with the dataset on female pop
+schools201516 <- inner_join(schools201516, female, by = c( "Zip" = "GEOID")) 
+
+#male by zip code
+male <-  get_acs(geography = "zcta", variables =  "B05003_002")
+
+#eliminate un-needed columns from male
+male <-  select(male, GEOID, estimate, moe)
+
+#add labels to male
+colnames(male)[2:3] <- paste("male", colnames(male)[2:3], sep = "_")
+
+#turning data in GEOID into integer class
+male$GEOID <- as.integer(male$GEOID)
+
+#bring together the 20152016 table with the dataset on male pop
+schools201516 <- inner_join(schools201516, male, by = c( "Zip" = "GEOID")) 
+
 
 #RACE by zip code
 #estimate of total population of 2 or more races
@@ -504,6 +550,9 @@ col_order <- c("Name.of.School",
                "MedianIncome.2012.2016", 
                "X..of.Pop.graduated.from.HS.2012.2016",
                "median age_estimate", 
+               "total pop_estimate",
+               "female_estimate",
+               "male_estimate",
                "multiracial population_estimate", 
                "white population_estimate", 
                "black population_estimate", 
@@ -545,8 +594,8 @@ schools14_16 <- schools14_16[, col_order]
 #removing na values
 schools1416b <- na.omit(schools14_16)
 #creating matrix for correlation, demographic info are rows, percentiles for 2016 are columns
-x <- schools1416b[8:38]
-y <- schools1416b[39]
+x <- schools1416b[8:41]
+y <- schools1416b[42]
 cor(x, y)
 
 #median income, native children living with 1 parent, children living with 1 native parent, living with one
@@ -556,9 +605,9 @@ cor(x, y)
 
 #correlations for Math scores
 #creating matrix for correlation
-w <- schools1416b[8:36]
-k <- schools1416b[40:41]
-z <-  schools1416b[42]
+w <- schools1416b[8:39]
+k <- schools1416b[43:44]
+z <-  schools1416b[45]
 #correlating demographic info with 2016 math percentiles
 cor(w,z)
 #correlating 2014 and 2015 math percentiles with 2016 math percentiles
@@ -568,8 +617,9 @@ cor(k,z)
 #2014 and 2015 math percentiles were most strongly correlated with 2016 percentiles
 #only income, 2014 and 2015 percentiles are over 0.5, in terms of correlation
 
-#based on this correlations, can see weakest are:
+#based on these correlations, can see weakest are:
 #for 2016 Reading:
+#total pop
 #multiracial pop
 #native children living with 2 parents
 #foreign born childre living with 2 parents
@@ -581,6 +631,9 @@ cor(k,z)
 
 #based on these correlations, can see weakest variables are:
 #for 2016 Math
+#total pop
+#female estimate
+#male estimate
 #hispanic pop estimate
 #native children living with 2 parents
 #children living with 2 foreign born parents
@@ -590,11 +643,13 @@ cor(k,z)
 #poor who did not receive food stamps
 
 #can remove these variables from dataset:
+#total pop
 #native children living with 2 parents
 #children living with 2 parents
 
-schools14_16 <- schools14_16[,(-16)]
-schools14_16 <- schools14_16[,(-24)]
+schools14_16 <-  schools14_16[,(-11)]
+schools14_16 <- schools14_16[,(-18)]
+schools14_16 <- schools14_16[,(-26)]
 
 #fixing the column names
 colnames(schools14_16)[colnames(schools14_16)=="Supportive.Environment"] <- "Environment Rating"
@@ -626,6 +681,10 @@ colnames(schools14_16)[colnames(schools14_16)=="2015_NWEA_Math_Attainment_Grade_
 colnames(schools14_16)[colnames(schools14_16)=="2016_NWEA_Math_Attainment_Grade_3_Pct"] <- "2016 NWEA Math Gr.3 Pct"
 
 colnames(schools14_16)[colnames(schools14_16)=="median age_estimate"] <- "Median Age Estimate"
+
+colnames(schools14_16)[colnames(schools14_16)=="female_estimate"] <- "Estimate of Female Population"
+
+colnames(schools14_16)[colnames(schools14_16)=="male_estimate"] <- "Estimate of Male Population"
 
 colnames(schools14_16)[colnames(schools14_16)=="multiracial population_estimate"] <- "Multiracial Pop. Estimate"
 
