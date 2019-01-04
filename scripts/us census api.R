@@ -3,8 +3,6 @@
 #install.packages("tidycensus")
 library(tidycensus)
 
-#my_key <- census_api_key("7e17eb37151215db6ed133db6d107bb6143a9e37", install = TRUE)
-
 #load variables 
 v15 <-  load_variables(2015, "acs5", cache = TRUE)
 
@@ -13,8 +11,20 @@ v15 <-  load_variables(2015, "acs5", cache = TRUE)
 
 v15 <-  load_variables(2015, "acs5", cache = TRUE)
 View(v15)
+
 #median age by zip code
 median_age <- get_acs(geography = "zcta", variables =  "B01002_001")
+
+#total pop by zip code
+total_pop <- get_acs(geography = "zcta", variables =  "B00001_001")
+
+#Gender by zip code
+
+#female by zip code
+female <-  get_acs(geography = "zcta", variables =  "B05003_013")
+
+#male by zip code
+male <-  get_acs(geography = "zcta", variables =  "B05003_002")
  
 #RACE by zip code
 #estimate of total population of 2 or more races
