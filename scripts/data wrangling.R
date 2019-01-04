@@ -9,13 +9,17 @@ schools2015 <-  read.csv("Chicagoschools2015.csv", na = c("", "NA"))
 schools2014 <-  read.csv("Chicagoschools2014.csv", na = c("", "NA"))
 allzips <- read.csv("allzips.csv")
 
+#The School ID label seems to cause some issues, so altering it
+colnames(schools2016)[colnames(schools2016)=="ï..School_ID"] <- "School_ID"
+colnames(schools2015)[colnames(schools2015)=="ï..School_ID"] <- "School_ID"
+colnames(schools2014)[colnames(schools2014)=="ï..School.ID"] <- "School_ID"
 
 #eliminate all schools from schools2015 schools2016 that are not elementary schools (high schools and middle schools)
 schools2015 <-  filter(schools2015, Primary_Category == "ES")
 schools2016 <-  filter(schools2016, Primary_Category == "ES")
 
 #eliminate un-needed columns from schools2016
-schools2016 <-  select(schools2016, ï..School_ID, 
+schools2016 <-  select(schools2016, School_ID, 
                        NWEA_Reading_Attainment_Grade_3_Pct, NWEA_Math_Attainment_Grade_3_Pct)
 
 #put 2016 labels on columns
@@ -24,7 +28,7 @@ colnames(schools2016)[2:3] <- paste("2016", colnames(schools2016)[2:3], sep = "_
 
 #eliminate un-needed columns from schools2015
 schools2015 <-  select(schools2015, 
-                       ï..School_ID, 
+                       School_ID, 
                        Zip,
                        NWEA_Reading_Attainment_Grade_3_Pct, 
                        NWEA_Math_Attainment_Grade_3_Pct)
@@ -35,7 +39,7 @@ colnames(schools2015)[3:4] <- paste("2015", colnames(schools2015)[3:4], sep = "_
 
 
 #bring the two school tables together
-schools201516 <- inner_join(schools2015, schools2016, by = "ï..School_ID") 
+schools201516 <- inner_join(schools2015, schools2016, by = "School_ID") 
 
 
 #bring together the table with the dataset on income and graduation percentages
@@ -477,13 +481,13 @@ schools201516 <-  select(schools201516, -Zip)
 schools2014 <-  select(schools2014, Name.of.School, Supportive.Environment,
                        Ambitious.Instruction, Effective.Leaders, Collaborative.Teachers, Safe, Involved.Family, NWEA.Reading.Attainment.Percentile.Grade.3, 
                        NWEA.Math.Attainment.Percentile.Grade.3, Location,
-                       ï..School.ID)
+                       School_ID)
 
 #put 2014 labels on columns
 colnames(schools2014)[8:9] <- paste("2014", colnames(schools2014)[8:9], sep = "_")
 
 #join the datasets together
-schools14_16 <- inner_join(schools2014, schools201516, by = c("ï..School.ID" = "ï..School_ID"))
+schools14_16 <- inner_join(schools2014, schools201516, by = "School_ID")
 
 #separating the Location column into Longtitude and Latitude
 schools14_16 <-  separate(schools14_16, Location, c("Longitude", "Latitude"), sep ="," )
