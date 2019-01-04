@@ -3,16 +3,12 @@ library(tidyverse)
 #install.packages("tidycensus")
 library(tidycensus)
 
-#read datasets into R
-schools2016 <-  read.csv("Chicagoschools2016.csv", na = c("", "NA"))
-schools2015 <-  read.csv("Chicagoschools2015.csv", na = c("", "NA"))
-schools2014 <-  read.csv("Chicagoschools2014.csv", na = c("", "NA"))
+#read datasets into R, use fileEncoding to get rid of junk symbol that appears at start of School ID
+schools2016 <-  read.csv("Chicagoschools2016.csv", na = c("", "NA"), fileEncoding="UTF-8-BOM")
+schools2015 <-  read.csv("Chicagoschools2015.csv", na = c("", "NA"),fileEncoding="UTF-8-BOM" )
+schools2014 <-  read.csv("Chicagoschools2014.csv", na = c("", "NA"), fileEncoding="UTF-8-BOM")
 allzips <- read.csv("allzips.csv")
 
-#The School ID label seems to cause some issues, so altering it
-colnames(schools2016)[colnames(schools2016)=="ï..School_ID"] <- "School_ID"
-colnames(schools2015)[colnames(schools2015)=="ï..School_ID"] <- "School_ID"
-colnames(schools2014)[colnames(schools2014)=="ï..School.ID"] <- "School_ID"
 
 #eliminate all schools from schools2015 schools2016 that are not elementary schools (high schools and middle schools)
 schools2015 <-  filter(schools2015, Primary_Category == "ES")
@@ -481,13 +477,13 @@ schools201516 <-  select(schools201516, -Zip)
 schools2014 <-  select(schools2014, Name.of.School, Supportive.Environment,
                        Ambitious.Instruction, Effective.Leaders, Collaborative.Teachers, Safe, Involved.Family, NWEA.Reading.Attainment.Percentile.Grade.3, 
                        NWEA.Math.Attainment.Percentile.Grade.3, Location,
-                       School_ID)
+                       School.ID)
 
 #put 2014 labels on columns
 colnames(schools2014)[8:9] <- paste("2014", colnames(schools2014)[8:9], sep = "_")
 
 #join the datasets together
-schools14_16 <- inner_join(schools2014, schools201516, by = "School_ID")
+schools14_16 <- inner_join(schools2014, schools201516, by = c("School.ID" = "School_ID"))
 
 #separating the Location column into Longtitude and Latitude
 schools14_16 <-  separate(schools14_16, Location, c("Longitude", "Latitude"), sep ="," )
