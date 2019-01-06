@@ -127,27 +127,33 @@ summary(schools14_16aareading)
 #209 schools fit within this category
 
 #plotting environment rating
-ggplot(schools14_16aareading, aes( x = Environment.Rating )) + geom_bar(fill = "blue")
+ggplot(schools14_16aareading, aes( x = Environment.Rating )) + geom_bar(fill = "blue")+
+  ggtitle("Environment rating and above average in Reading")
 #neutral is by far most frequent
 
 #plotting Family rating
-ggplot(schools14_16aareading, aes( x = Family.Rating )) + geom_bar(fill = "red")
+ggplot(schools14_16aareading, aes( x = Family.Rating )) + geom_bar(fill = "red") +
+  ggtitle("Family rating and above average in Reading")
 #strong is most frequent followed by neutral
 
 #plotting Instruction rating
-ggplot(schools14_16aareading, aes( x = Instruction.Rating )) + geom_bar(fill = "pink")
+ggplot(schools14_16aareading, aes( x = Instruction.Rating )) + geom_bar(fill = "pink") +
+  ggtitle("Instruction rating and above average in Reading")
 #strong is most frequent
 
 #plotting Leadership Rating
-ggplot(schools14_16aareading, aes( x = Leadership.Rating )) + geom_bar(fill = "white")
+ggplot(schools14_16aareading, aes( x = Leadership.Rating )) + geom_bar(fill = "white") +
+  ggtitle("Leadership rating and above average in Reading")
 #neutral is most frequent
 
 #plotting Collaboration Rating
-ggplot(schools14_16aareading, aes( x = Collaboration.Rating )) + geom_bar(fill = "green")
+ggplot(schools14_16aareading, aes( x = Collaboration.Rating )) + geom_bar(fill = "green") +
+  ggtitle("Collaboration rating and above average in Reading")
 #strong is most frequent
 
 #plotting Safety Rating
-ggplot(schools14_16aareading, aes( x = Safety.Rating )) + geom_bar(fill = "cyan")
+ggplot(schools14_16aareading, aes( x = Safety.Rating )) + geom_bar(fill = "cyan") +
+  ggtitle("Safety rating and above average in Reading")
 #neutral is most frequent, closely followed by strong
 
 #which of the five essentials is most frequently associated with schools who are above average in Reading?
