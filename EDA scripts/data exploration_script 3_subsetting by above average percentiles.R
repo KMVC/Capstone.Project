@@ -228,6 +228,7 @@ ggplot(schools14_16aareading, aes( x = Estimate.of.Children..6.18..Living.with.1
 
 leaflet() %>% addTiles() %>% 
   addMarkers(lng = schools14_16aareading$Longitude, lat = schools14_16aareading$Latitude)
+
 ######################################################################################################
 
 #looking at schools that are ranked in 75th percentile or higher in Reading
@@ -244,6 +245,7 @@ schools14_16_m75 <-  filter(schools14_16, X2016.NWEA.Math.Gr.3.Pct >= 75)
 #create a map
 leaflet() %>% addTiles() %>% 
   addMarkers(lng = schools14_16_m75$Longitude, lat = schools14_16_m75$Latitude)
+
 #seems to be higher concentration on the north side
 
 ######################################################################################################
@@ -280,6 +282,7 @@ schools14_16_m25 <-  filter(schools14_16, X2016.NWEA.Math.Gr.3.Pct <= 25)
 #create a map of schools scoring 25 or less in reading
 leaflet() %>% addTiles() %>% 
   addMarkers(lng = schools14_16_m25$Longitude, lat = schools14_16_m25$Latitude)
+
 #seems to be a # on the southern side of the city
 
 #income and 25 and below  in math
