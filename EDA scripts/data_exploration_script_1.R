@@ -1,4 +1,4 @@
-#some statistical analysis on entire data set
+#some EDA on entire data set
 
 #load the data and relevant libraries
 schools14_16 <- read.csv("schools14_16.csv", na = c("", "NA"))
