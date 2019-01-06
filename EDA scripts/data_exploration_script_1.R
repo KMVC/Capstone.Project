@@ -23,7 +23,7 @@ ggplot(schools14_16, aes(x = Median.Income, y = X2016.NWEA.Reading.Gr.3.Pct)) +
 #Native children living with 1 parent and grade 3 reading
 ggplot(schools14_16, aes(x = Estimate.of.Native.born.Children..6.18..Living.with.1.Parent,
                          y = X2016.NWEA.Reading.Gr.3.Pct)) + 
-                        geom_point()+ geom_smooth() + ggtitle("Reading Percentile and # of Children Living W/One Parent 
+                        geom_point()+ geom_smooth() + ggtitle("Reading Percentile and # of Native Children Living W/One Parent 
                                                                     in Zip Code")
 
 #Children living with 1 native parent and grade 3 reading
@@ -84,7 +84,7 @@ ggplot(schools14_16, aes(x = X2014.NWEA.Reading.Gr.3.Pct , y = X2016.NWEA.Readin
 
 #2015 reading and 2016 grade 3 reading
 ggplot(schools14_16, aes(x = X2015.NWEA.Reading.Gr.3.Pct, y = X2016.NWEA.Reading.Gr.3.Pct))+
-  geom_point() + geom_smooth() + ggtitle("2015 Reading Attainment and 2016 Reading Attainment")
+  geom_point() + geom_smooth() + ggtitle("2015 Reading Percentile and 2016 Reading Percentiles")
 
 #the above graphs seem to show the strongest correlation - the percentiles achieved in 2014/2015 reading 
 #seem to highly correlate with the percentiles achieved in 2016
@@ -101,16 +101,16 @@ ggplot(schools14_16, aes(x = H.S.Graduation.., y = X2016.NWEA.Math.Gr.3.Pct)) +
 
 #income and grade 3 math
 ggplot(schools14_16, aes(x = Median.Income, y = X2016.NWEA.Math.Gr.3.Pct )) + 
-  geom_point() + geom_smooth() + ggtitle("Median Income and Math Attainment")
+  geom_point() + geom_smooth() + ggtitle("Median Income and Math Percentiles")
 
 #African-American population and grade 3 math
 ggplot(schools14_16, aes(x = Black.Pop..Estimate, y = X2016.NWEA.Math.Gr.3.Pct )) + 
-  geom_point() + geom_smooth() + ggtitle("African-American Population and Math Attainment")
+  geom_point() + geom_smooth() + ggtitle("African-American Population and Math Percentiles")
 
 #Native children living with 1 parent and grade 3 math
 ggplot(schools14_16, aes(x = Estimate.of.Native.born.Children..6.18..Living.with.1.Parent, 
                          y = X2016.NWEA.Math.Gr.3.Pct)) + 
-  geom_point()+ geom_smooth() + ggtitle("Math Percentile and # of Children Living W/One Parent 
+  geom_point()+ geom_smooth() + ggtitle("Math Percentile and # of Native Children Living W/One Parent 
                                         in Zip Code")
 
 #Children living with 1 native parent and grade 3 math
