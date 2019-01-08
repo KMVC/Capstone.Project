@@ -20,34 +20,16 @@ ggplot(schools14_16, aes(x = H.S.Graduation.., y = X2016.NWEA.Reading.Gr.3.Pct))
 ggplot(schools14_16, aes(x = Median.Income, y = X2016.NWEA.Reading.Gr.3.Pct)) + 
   geom_point() +geom_smooth() + ggtitle("Reading Percentile and Income by Neighbourhood")
 
-#Native children living with 1 parent and grade 3 reading
-ggplot(schools14_16, aes(x = Estimate.of.Native.born.Children..6.18..Living.with.1.Parent,
+#Aggregated earnings and grade 3 reading
+ggplot(schools14_16, aes(x = Estimate.of.Aggregate.Earnings,
                          y = X2016.NWEA.Reading.Gr.3.Pct)) + 
-                        geom_point()+ geom_smooth() + ggtitle("Reading Percentile and # of Native Children Living W/One Parent 
+                        geom_point()+ geom_smooth() + ggtitle("Reading Percentile and Estimate of Aggregated Earnings 
                                                                     in Zip Code")
 
-#Children living with 1 native parent and grade 3 reading
-ggplot(schools14_16, aes(x = Estimate.of.Children..6.18..Living.with.1.Native.born.Parent,
-                         y = X2016.NWEA.Reading.Gr.3.Pct)) + 
-  geom_point()+ geom_smooth() + ggtitle("Reading Percentile and # of Children Living W/One Native Parent 
-                                        in Zip Code")
-
-#Children living with one parent and grade 3 reading
-ggplot(schools14_16, aes(x = Estimate.of.Children..6.18..Living.with.1.Parent, 
-                         y = X2016.NWEA.Reading.Gr.3.Pct)) + 
-  geom_point()+ geom_smooth() + ggtitle("Reading Percentile and # of Children Living W/One Parent 
-                                        in Zip Code")
-
-#Those above/at poverty line who received food stamps and grade 3 reading
-ggplot(schools14_16, aes(x = Estimate.of.Pop..At.or.Above.Poverty.Line.who.Received.Food.Stamps, 
-                         y = X2016.NWEA.Reading.Gr.3.Pct)) + 
-  geom_point()+ geom_smooth() + ggtitle("Reading Percentile and # of People At/Above Poverty Line
-                                         With Food Stamps")
-
-#poor who received food stamps and grade 3 reading
-ggplot(schools14_16, aes(x = Estimate.of.Poor.Who.Received.Food.Stamps, y = X2016.NWEA.Reading.Gr.3.Pct)) + 
-  geom_point() +geom_smooth() + ggtitle("Reading Percentile and # of Poor 
-                                        With Food Stamps In School Zip Code")
+#those who did not receive food stamps and grade 3 reading
+ggplot(schools14_16, aes(x = Estimate.of.Pop..At.or.Above.Poverty.Line.who.Did.Not.Receive.Food.Stamps, y = X2016.NWEA.Reading.Gr.3.Pct)) + 
+  geom_point() +geom_smooth() + ggtitle("Reading Percentile and # of Those Who Did Not Receive
+                                        Food Stamps in School Zip Code")
 
 
 
@@ -103,32 +85,17 @@ ggplot(schools14_16, aes(x = H.S.Graduation.., y = X2016.NWEA.Math.Gr.3.Pct)) +
 ggplot(schools14_16, aes(x = Median.Income, y = X2016.NWEA.Math.Gr.3.Pct )) + 
   geom_point() + geom_smooth() + ggtitle("Median Income and Math Percentiles")
 
-#African-American population and grade 3 math
-ggplot(schools14_16, aes(x = Black.Pop..Estimate, y = X2016.NWEA.Math.Gr.3.Pct )) + 
-  geom_point() + geom_smooth() + ggtitle("African-American Population and Math Percentiles")
-
-#Native children living with 1 parent and grade 3 math
-ggplot(schools14_16, aes(x = Estimate.of.Native.born.Children..6.18..Living.with.1.Parent, 
+#Aggregated earnings and grade 3 math
+ggplot(schools14_16, aes(x = Estimate.of.Aggregate.Earnings,
                          y = X2016.NWEA.Math.Gr.3.Pct)) + 
-  geom_point()+ geom_smooth() + ggtitle("Math Percentile and # of Native Children Living W/One Parent 
+  geom_point()+ geom_smooth() + ggtitle("Math Percentile and Estimate of Aggregated Earnings 
                                         in Zip Code")
 
-#Children living with 1 native parent and grade 3 math
-ggplot(schools14_16, aes(x = Estimate.of.Children..6.18..Living.with.1.Native.born.Parent, 
+#those who did not receive food stamps and grade 3 math
+ggplot(schools14_16, aes(x = Estimate.of.Pop..At.or.Above.Poverty.Line.who.Did.Not.Receive.Food.Stamps, 
                          y = X2016.NWEA.Math.Gr.3.Pct)) + 
-  geom_point()+ geom_smooth() + ggtitle("Math Percentile and # of Children Living W/One Native Parent 
-                                        in Zip Code")
-
-#Children living with one parent and grade 3 math
-ggplot(schools14_16, aes(x = Estimate.of.Children..6.18..Living.with.1.Parent, 
-                         y = X2016.NWEA.Math.Gr.3.Pct)) + 
-  geom_point()+ geom_smooth() + ggtitle("Math Percentile and # of Children Living W/One Parent 
-                                        in Zip Code")
-
-#poor who received food stamps and grade 3 math
-ggplot(schools14_16, aes(x = Estimate.of.Poor.Who.Received.Food.Stamps, y = X2016.NWEA.Math.Gr.3.Pct)) + 
-  geom_point() +geom_smooth() + ggtitle("Math Percentile and # of Poor 
-                                        With Food Stamps In School Zip Code")
+  geom_point() +geom_smooth() + ggtitle("Math Percentile and # of Those Who Did Not Receive
+                                        Food Stamps in School Zip Code")
 
 
 
@@ -151,7 +118,7 @@ ggplot(schools14_16, aes(x = Collaboration.Rating, y = X2016.NWEA.Math.Gr.3.Pct)
   geom_point() +ggtitle("Math Percentile and Collaborative Teachers")
 
 #effective leaders and third grade math
-ggplot(schools1416, aes(x = Leadership.Rating, y = X2016.NWEA.Math.Gr.3.Pct))+ geom_point() +
+ggplot(schools14_16, aes(x = Leadership.Rating, y = X2016.NWEA.Math.Gr.3.Pct))+ geom_point() +
   ggtitle("Math Percentile and Effective Leaders")
 
 #as with the 5essential/reading percentile charts, the charts above do not provide much 
@@ -255,7 +222,7 @@ schools14_16a <- schools14_16a %>%
                                          Leadership.Rating == "NOT ENOUGH DATA" ~ 0))
 
 #sum up the values in the new columns
-colsums14_16a <-  colSums(schools14_16a[,46:50])
+colsums14_16a <-  colSums(schools14_16a[,21:25])
 
 #turn the column sums into a table
 colsums14_16atable <- as.table(colsums14_16a)
@@ -325,7 +292,7 @@ schools14_16b <- schools14_16b %>%
                                          Leadership.Rating == "NOT ENOUGH DATA" ~ 0))
 
 #sum up the values in the new columns
-colsums14_16b <-  colSums(schools14_16b[,46:50])
+colsums14_16b <-  colSums(schools14_16b[,21:25])
 
 #turn the column sums into a table
 colsums14_16btable <- as.table(colsums14_16b)
