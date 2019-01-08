@@ -3,6 +3,8 @@
 schools14_16 <- read.csv("schools14_16.csv", na = c("", "NA"))
 library(tidyverse)
 library(leaflet)
+library(htmlwidgets)
+library(htmltools)
 
 
 #looking at schools that were above national average for math
@@ -17,6 +19,7 @@ summary(schools14_16aamath)
 #plotting environment rating
 ggplot(schools14_16aamath, aes( x = Environment.Rating )) + geom_bar(fill = "blue")+ 
   ggtitle("Above average in math and Environment Ratings")
+
 #for Environment, neutral is the most frequent score for schools above average in math
 
 
@@ -28,11 +31,13 @@ ggplot(schools14_16aamath, aes( x = Family.Rating )) + geom_bar(fill = "purple")
 #plotting Instruction rating
 ggplot(schools14_16aamath, aes( x = Instruction.Rating )) + geom_bar(fill = "pink") + 
   ggtitle("Above average in math and Instruction Ratings")
+
 #strong is most frequent, followed closely by neutral
 
 #plotting Leadership Rating
 ggplot(schools14_16aamath, aes( x = Leadership.Rating )) + geom_bar(fill = "white")+ 
   ggtitle("Above average in math and Leadership Ratings")
+
 #Neutral is most frequent, followed by strong
 
 #plotting Collaboration Rating
@@ -41,7 +46,9 @@ ggplot(schools14_16aamath, aes( x = Collaboration.Rating )) + geom_bar(fill = "r
 #Neutral most frequent, followed by Strong
 
 #plotting Safety Rating
-ggplot(schools14_16aamath, aes( x = Safety.Rating )) + geom_bar(fill = "green")
+ggplot(schools14_16aamath, aes( x = Safety.Rating )) + geom_bar(fill = "green")+
+  ggtitle("Above average in math and Safety Rating")
+
 #strong is most frequent, followed by neutral
 
 #which of the five essentials is most frequently scored as strong or very strong for schools 
@@ -88,7 +95,7 @@ schools14_16aamathE <- schools14_16aamathE %>%
                                          Leadership.Rating == "NOT ENOUGH DATA" ~ 0))
 
 #sum up the new columns
-colsums14_16aamathE <-  colSums(schools14_16aamathE[,46:50])
+colsums14_16aamathE <-  colSums(schools14_16aamathE[,21:25])
 
 print(colsums14_16aamathE)
 
@@ -106,15 +113,18 @@ colsums14_16aamathEdf <-  as.data.frame(colsums14_16aamathET)
  
 #income and above average in math
 ggplot(schools14_16aamath, aes( x = Median.Income, y = X2016.NWEA.Math.Gr.3.Pct )) + geom_point () +
-  geom_smooth() + ggtitle("Median Income and Math Percentiles for Schools above average in Math")
+  geom_smooth() + ggtitle("Median Income and Math Percentiles for Schools above average in math")
 
-#one parent and above average in math
-ggplot(schools14_16aamath, aes( x = Estimate.of.Children..6.18..Living.with.1.Parent, y = X2016.NWEA.Math.Gr.3.Pct )) + geom_point () +
-  geom_smooth() + ggtitle("1 Parent and Math Percentiles for Schools above average in Math")
+#above poverty line and above average in math
+ggplot(schools14_16aamath, aes( x = Estimate.of.Pop..At.or.Above.Poverty.Line.who.Did.Not.Receive.Food.Stamps, y = X2016.NWEA.Math.Gr.3.Pct )) + geom_point () +
+  geom_smooth() + ggtitle("Did not Receive Food Stamps and Math Percentiles for Schools above average in math")
 
 #map of above average schools in math
+legendaamath <- tags$h5("Schools scoring over the 50th Percentile in math")
+
 leaflet() %>% addTiles() %>% 
-  addMarkers(lng = schools14_16aamath$Longitude, lat = schools14_16aamath$Latitude)
+  addMarkers(lng = schools14_16aamath$Longitude, lat = schools14_16aamath$Latitude) %>%
+  addControl(legendaamath, position = "bottomright")
              
 
  
@@ -128,32 +138,33 @@ summary(schools14_16aareading)
 
 #plotting environment rating
 ggplot(schools14_16aareading, aes( x = Environment.Rating )) + geom_bar(fill = "blue")+
-  ggtitle("Environment rating and above average in Reading")
+  ggtitle("Environment rating and above average in reading")
 #neutral is by far most frequent
 
 #plotting Family rating
 ggplot(schools14_16aareading, aes( x = Family.Rating )) + geom_bar(fill = "red") +
-  ggtitle("Family rating and above average in Reading")
+  ggtitle("Family rating and above average in reading")
 #strong is most frequent followed by neutral
 
 #plotting Instruction rating
 ggplot(schools14_16aareading, aes( x = Instruction.Rating )) + geom_bar(fill = "pink") +
-  ggtitle("Instruction rating and above average in Reading")
+  ggtitle("Instruction rating and above average in reading")
 #strong is most frequent
 
 #plotting Leadership Rating
 ggplot(schools14_16aareading, aes( x = Leadership.Rating )) + geom_bar(fill = "white") +
-  ggtitle("Leadership rating and above average in Reading")
+  ggtitle("Leadership rating and above average in reading")
 #neutral is most frequent
 
 #plotting Collaboration Rating
 ggplot(schools14_16aareading, aes( x = Collaboration.Rating )) + geom_bar(fill = "green") +
-  ggtitle("Collaboration rating and above average in Reading")
+  ggtitle("Collaboration rating and above average in reading")
 #strong is most frequent
 
 #plotting Safety Rating
 ggplot(schools14_16aareading, aes( x = Safety.Rating )) + geom_bar(fill = "cyan") +
-  ggtitle("Safety rating and above average in Reading")
+  ggtitle("Safety rating and above average in reading")
+
 #neutral is most frequent, closely followed by strong
 
 #which of the five essentials is most frequently associated with schools who are above average in Reading?
@@ -199,7 +210,7 @@ schools14_16aareadingE <- schools14_16aareadingE %>%
                                          Leadership.Rating == "NOT ENOUGH DATA" ~ 0))
 
 #sum up the new columns
-colsums14_16aareadingE <-  colSums(schools14_16aareadingE[,46:50])
+colsums14_16aareadingE <-  colSums(schools14_16aareadingE[,21:25])
 
 print(colsums14_16aareadingE)
 
@@ -217,17 +228,20 @@ ggplot(colsums14_16aareadingEdf, aes(x = Var1, y = Freq)) + geom_point(col = "re
 
 #income and above average in reading
 ggplot(schools14_16aareading, aes( x = Median.Income, y = X2016.NWEA.Reading.Gr.3.Pct )) + geom_point () +
-  geom_smooth() + ggtitle("Median Income and Reading Percentiles for Schools above average in Math")
+  geom_smooth() + ggtitle("Median Income and Reading Percentiles for Schools above average in math")
 
-#one parent and above average in reading
-ggplot(schools14_16aareading, aes( x = Estimate.of.Children..6.18..Living.with.1.Parent, y = X2016.NWEA.Reading.Gr.3.Pct )) +
-  geom_point () + geom_smooth() + ggtitle("1 Parent and Reading Percentiles for Schools 
-                                          above average in Reading")
+#aggregate earnings and above average in reading
+ggplot(schools14_16aareading, aes( x = Estimate.of.Aggregate.Earnings, y = X2016.NWEA.Reading.Gr.3.Pct )) +
+  geom_point () + geom_smooth() + ggtitle("Aggregate Earnings and Reading Percentiles for Schools 
+                                          above average in reading")
 
 #create a map
+legendaareading <- tags$h5("Schools scoring over the 50th Percentile in reading")
 
 leaflet() %>% addTiles() %>% 
-  addMarkers(lng = schools14_16aareading$Longitude, lat = schools14_16aareading$Latitude)
+  addMarkers(lng = schools14_16aareading$Longitude, lat = schools14_16aareading$Latitude) %>% 
+  addControl(legendaareading, position = "bottomright")
+
 
 ######################################################################################################
 
@@ -235,16 +249,23 @@ leaflet() %>% addTiles() %>%
 schools14_16_75 <-  filter(schools14_16, X2016.NWEA.Reading.Gr.3.Pct >= 75)
 
 #create a map
+legend75reading <-  tags$h5("Schools scoring in the 75th percentile or above in reading")
+
 leaflet() %>% addTiles() %>% 
-  addMarkers(lng = schools14_16_75$Longitude, lat = schools14_16_75$Latitude)
+  addMarkers(lng = schools14_16_75$Longitude, lat = schools14_16_75$Latitude) %>%
+  addControl(legend75reading, position = "bottomright")
+
 #seem to be more on northern side of the city
 
 #looking at schools that are ranked in 75th percentile or higher in math
 schools14_16_m75 <-  filter(schools14_16, X2016.NWEA.Math.Gr.3.Pct >= 75)
 
 #create a map
+legendm75 <-  tags$h5("Schools scoring in the 75th percentile or above in math")
+
 leaflet() %>% addTiles() %>% 
-  addMarkers(lng = schools14_16_m75$Longitude, lat = schools14_16_m75$Latitude)
+  addMarkers(lng = schools14_16_m75$Longitude, lat = schools14_16_m75$Latitude) %>% 
+  addControl(legendm75, position = "bottomright")
 
 #seems to be higher concentration on the north side
 
@@ -254,24 +275,29 @@ schools14_16_r25 <-  filter(schools14_16, X2016.NWEA.Reading.Gr.3.Pct <= 25)
 
 
 #create a map of schools scoring 25 or less in reading
+legendr25 <- tags$h5("Schools scoring in the 25th percentile or lower in reading")
+
 leaflet() %>% addTiles() %>% 
-  addMarkers(lng = schools14_16_r25$Longitude, lat = schools14_16_r25$Latitude)
+  addMarkers(lng = schools14_16_r25$Longitude, lat = schools14_16_r25$Latitude)%>% 
+  addControl(legendr25, position = "bottomright")
+
 #seems to be a higher concentration on the southern side of the city
 
 #income and 25 and below  in reading
 ggplot(schools14_16_r25, aes( x = Median.Income, y = X2016.NWEA.Reading.Gr.3.Pct )) + geom_point () +
-  geom_smooth() + ggtitle("Median Income and Reading Percentiles for Schools below average in Reading")
+  geom_smooth() + ggtitle("Median Income and Reading Percentiles for Schools below average in reading")
+
 #incomes  seem to mostly fall within 20,000 - 40,000 range
 
-#one parent and above average in reading
-ggplot(schools14_16_r25, aes( x = Estimate.of.Children..6.18..Living.with.1.Parent, y = X2016.NWEA.Reading.Gr.3.Pct )) + 
-  geom_point () + geom_smooth() + ggtitle("1 Parent and Reading Percentiles for Schools
-                                          below average in Reading")
+#aggregate earnings and above average in reading
+ggplot(schools14_16_r25, aes( x = Estimate.of.Aggregate.Earnings, y = X2016.NWEA.Reading.Gr.3.Pct )) + 
+  geom_point () + geom_smooth() + ggtitle("Aggregate Earnings and Reading Percentiles for Schools
+                                          below average in reading")
 
-#poverty, receiving food stamps and reading
-ggplot(schools14_16_r25, aes( x = Estimate.of.Poor.Who.Received.Food.Stamps, y = X2016.NWEA.Reading.Gr.3.Pct )) + 
-  geom_point () + geom_smooth() + ggtitle("Below Poverty Level and Reading Percentiles for Schools
-                                          below average in Reading")
+#not receiving food stamps and reading
+ggplot(schools14_16_r25, aes( x = Estimate.of.Pop..At.or.Above.Poverty.Line.who.Did.Not.Receive.Food.Stamps, y = X2016.NWEA.Reading.Gr.3.Pct )) + 
+  geom_point () + geom_smooth() + ggtitle("Did not Receive Food Stamps and Reading Percentiles for Schools
+                                          below average in reading")
 #not a very high level of correlation
 
 ###############################################################################################
@@ -280,23 +306,26 @@ schools14_16_m25 <-  filter(schools14_16, X2016.NWEA.Math.Gr.3.Pct <= 25)
 
 
 #create a map of schools scoring 25 or less in reading
+legendm25 <- tags$h5("Schools scoring in the 25th percentile or lower in math")
+
 leaflet() %>% addTiles() %>% 
-  addMarkers(lng = schools14_16_m25$Longitude, lat = schools14_16_m25$Latitude)
+  addMarkers(lng = schools14_16_m25$Longitude, lat = schools14_16_m25$Latitude)%>% 
+  addControl(legendm25, position = "bottomright")
 
 #seems to be a # on the southern side of the city
 
 #income and 25 and below  in math
 ggplot(schools14_16_m25, aes( x = Median.Income, y = X2016.NWEA.Math.Gr.3.Pct )) + geom_point () +
-  geom_smooth() + ggtitle("Median Income and Math Percentiles for Schools below average in Math")
+  geom_smooth() + ggtitle("Median Income and Math Percentiles for Schools below average in math")
 #incomes  seem to mostly fall within 20,000 - 40,000 range
 
-#one parent and above average in reading
-ggplot(schools14_16_m25, aes( x = Estimate.of.Children..6.18..Living.with.1.Parent, y = X2016.NWEA.Math.Gr.3.Pct )) + 
-  geom_point () + geom_smooth() + ggtitle("1 Parent and Math Percentiles for Schools
-                                          below average in Math")
+#aggregate earnings and below average in math
+ggplot(schools14_16_m25, aes( x = Estimate.of.Aggregate.Earnings, y = X2016.NWEA.Math.Gr.3.Pct )) + 
+  geom_point () + geom_smooth() + ggtitle("Aggregate Earnings and Math Percentiles for Schools
+                                          below average in math")
 
-#poverty, receiving food stamps and reading
-ggplot(schools14_16_m25, aes( x = Estimate.of.Poor.Who.Received.Food.Stamps, y = X2016.NWEA.Math.Gr.3.Pct )) + 
-  geom_point () + geom_smooth() + ggtitle("Below Poverty Level and Math Percentiles for Schools
-                                          below average in Math")
+#Not receiving food stamps and math
+ggplot(schools14_16_m25, aes( x = Estimate.of.Pop..At.or.Above.Poverty.Line.who.Did.Not.Receive.Food.Stamps, y = X2016.NWEA.Math.Gr.3.Pct )) + 
+  geom_point () + geom_smooth() + ggtitle("Did not Receive Food Stamps and Math Percentiles for Schools
+                                          below average in math")
 
