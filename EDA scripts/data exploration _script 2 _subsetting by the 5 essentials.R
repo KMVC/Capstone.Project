@@ -7,6 +7,8 @@
 schools14_16 <- read.csv("schools14_16.csv", na = c("", "NA"))
 library(tidyverse)
 library(leaflet)
+library(htmlwidgets)
+library(htmltools)
 
 ########################################################################################################
 
@@ -60,16 +62,12 @@ ggplot(schools14_16_vs, aes(x = Median.Income, y = X2016.NWEA.Reading.Gr.3.Pct))
 
 
 #create a map of very strong schools to showcase location
-pal <- colorFactor(
-  palette = 'Set1',
-  domain = schools14_16_vs$Name.of.School)
+legendvs <- tags$h5("Very Strong Schools")
 
 leaflet() %>% addTiles() %>% 
   addMarkers(lng = schools14_16_vs$Longitude, lat = schools14_16_vs$Latitude,
-             label = schools14_16_vs$Name.of.School)%>% addLegend("bottomright", pal = pal, 
-                                                                values = schools14_16_vs$Name.of.School,
-                                                                title = "Very Strong Schools", 
-                                                                opacity = 1)
+             label = schools14_16_vs$Name.of.School)%>% 
+  addControl(legendvs, position = "bottomright")
 
 #######################################################################################################
 
@@ -129,17 +127,13 @@ ggplot(schools14_16_allstrong, aes(x = Median.Income, y = X2016.NWEA.Math.Gr.3.P
   geom_point() + ggtitle("Income and Math Percentiles, Very strong/Strong Schools")
 
 
-#create a map of strong/very schools to showcase location 
-pal <- colorFactor(
-  palette = 'Set1',
-  domain = schools14_16_allstrong$Name.of.School)
+#create a map of strong/very schools to showcase location
+legendallstrong <-  tags$h5("Very Strong/Strong Schools")
+
 
 leaflet() %>% addTiles() %>% 
   addMarkers(lng = schools14_16_allstrong$Longitude, lat = schools14_16_allstrong$Latitude,
-             label = schools14_16_allstrong$Name.of.School)%>% addLegend("bottomright", pal = pal, 
-                                                                         values = schools14_16_allstrong$Name.of.School,
-                                                                          title = "Very Strong/Strong Schools", 
-                                                                          opacity = 1)
+             label = schools14_16_allstrong$Name.of.School)%>% addControl(legendallstrong, position = "bottomright")
 
 ########################################################################################################
 #schools that are strong in all categories
@@ -183,14 +177,12 @@ ggplot(schools14_16_strong, aes(x = Median.Income, y = X2016.NWEA.Reading.Gr.3.P
   geom_point() + ggtitle("Reading Percentiles, Income and Safety, Strong Schools")
 
 #create a map of  strong schools to showcase location 
-pal <- colorFactor(
-  palette = 'Set1',
-  domain = schools14_16_strong$Name.of.School)
+legendstrong <- tags$h5("Strong Schools")
 
 leaflet() %>% addTiles() %>% 
   addMarkers(lng = schools14_16_strong$Longitude, lat = schools14_16_strong$Latitude,
-             label = schools14_16_strong$Name.of.School)%>% addLegend("bottomright", pal = pal, values = schools14_16_strong$Name.of.School,
-                                                                       title = "Strong Schools", opacity = 1)
+             label = schools14_16_strong$Name.of.School)%>% 
+  addControl(legendstrong, position = "bottomright")
 
 
 ##########################################################################################################
@@ -238,14 +230,11 @@ ggplot(schools14_16_neutral, aes(x = Median.Income, y = X2016.NWEA.Reading.Gr.3.
   geom_point() + ggtitle("Reading Percentiles, Income and Safety, Neutral Schools")
 
 #create a map of neutral schools to showcase location
-pal <- colorFactor(
-  palette = 'Set1',
-  domain = schools14_16_neutral$Name.of.School)
+legendneutral <- tags$h5("Neutral Schools")
 
 leaflet() %>% addTiles() %>% 
   addMarkers(lng = schools14_16_neutral$Longitude, lat = schools14_16_neutral$Latitude,
-             label = schools14_16_neutral$Name.of.School)%>% addLegend("bottomright", pal = pal, values = schools14_16_neutral$Name.of.School,
-                                                                     title = "Neutral Schools", opacity = 1)
+             label = schools14_16_neutral$Name.of.School)%>% addControl(legendneutral, position = "bottomright")
 
 #########################################################################################################
 
@@ -295,16 +284,12 @@ ggplot(schools14_16_weak, aes(x = Median.Income, y = X2016.NWEA.Reading.Gr.3.Pct
 
 
 #create a map of weak schools to showcase location
-pal <- colorFactor(
-  palette = 'Set1',
-  domain = schools14_16_weak$Name.of.School)
-
+legendweak <- tags$h5("Weak Schools")
 
 leaflet() %>% addTiles() %>% 
   addMarkers(lng = schools14_16_weak$Longitude, lat = schools14_16_weak$Latitude,
-             label = schools14_16_weak$Name.of.School) %>%  addLegend("bottomright", pal = pal, values = schools14_16_weak$Name.of.School,
-                                                                    title = "Weak Schools", opacity = 1)
-
+             label = schools14_16_weak$Name.of.School) %>%  
+  addControl(legendweak, position = "bottomright")
 #schools located mostly in the south part of the city
 
 ########################################################################################################
