@@ -1,5 +1,7 @@
 #subsetting by above average and below percentiles
 
+#load data and relevant libraries
+
 schools14_16 <- read.csv("schools14_16.csv", na = c("", "NA"))
 library(tidyverse)
 library(leaflet)
