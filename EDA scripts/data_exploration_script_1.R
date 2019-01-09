@@ -3,6 +3,7 @@
 #load the data and relevant libraries
 schools14_16 <- read.csv("schools14_16.csv", na = c("", "NA"))
 library(tidyverse)
+library(corrplot)
 
 
 #take a look at summary of the dataset to get means of high school graduation/median income/math and reading percentile means
@@ -315,3 +316,123 @@ ggplot(colsums14_16bdf, aes(x = `5 Essentials`, y = Frequency)) +
 #Family Rating: 104
 #Environment Rating: 69
 #Instruction Rating: 58
+
+###########################################################################################################################################
+#creating a correlation matrix, and plots
+
+
+#converting categorical variables to numerical
+schools14_16cor <- schools14_16 %>% 
+  mutate("environment scores" = case_when(Environment.Rating == "VERY STRONG" ~ 5, 
+                                          Environment.Rating == "STRONG" ~ 4, 
+                                          Environment.Rating == "NEUTRAL" ~ 3,
+                                          Environment.Rating == "WEAK" ~ 2,
+                                          Environment.Rating == "VERY WEAK" ~ 1, 
+                                          Environment.Rating == "NOT ENOUGH DATA" ~ 0))
+
+schools14_16cor <- schools14_16cor %>% 
+  mutate("instruction scores" = case_when(Instruction.Rating == "VERY STRONG" ~ 5, 
+                                          Instruction.Rating == "STRONG" ~ 4, 
+                                          Instruction.Rating == "NEUTRAL" ~ 3, 
+                                          Instruction.Rating == "WEAK" ~ 2,
+                                          Instruction.Rating == "VERY WEAK" ~ 1, 
+                                          Instruction.Rating == "NOT ENOUGH DATA" ~ 0))
+
+
+schools14_16cor <- schools14_16cor %>% 
+  mutate("collaboration scores" = case_when(Collaboration.Rating == "VERY STRONG" ~ 5, 
+                                            Collaboration.Rating == "STRONG" ~ 4, 
+                                            Collaboration.Rating == "NEUTRAL" ~ 3, 
+                                            Collaboration.Rating == "WEAK" ~ 2,
+                                            Collaboration.Rating == "VERY WEAK" ~ 1, 
+                                            Collaboration.Rating == "NOT ENOUGH DATA" ~ 0))
+
+schools14_16cor <- schools14_16cor %>% 
+  mutate("family scores" = case_when(Family.Rating == "VERY STRONG" ~ 5, 
+                                     Family.Rating == "STRONG" ~ 4, 
+                                     Family.Rating == "NEUTRAL" ~ 3, 
+                                     Family.Rating == "WEAK" ~ 2,
+                                     Family.Rating == "VERY WEAK" ~ 1, 
+                                     Family.Rating == "NOT ENOUGH DATA" ~ 0))
+
+schools14_16cor <- schools14_16cor %>% 
+  mutate("leadership scores" = case_when(Leadership.Rating == "VERY STRONG" ~ 5, 
+                                         Leadership.Rating == "STRONG" ~ 4, 
+                                         Leadership.Rating == "NEUTRAL" ~ 3, 
+                                         Leadership.Rating == "WEAK" ~ 2,
+                                         Leadership.Rating == "VERY WEAK" ~ 1, 
+                                         Leadership.Rating == "NOT ENOUGH DATA" ~ 0))
+
+schools14_16cor <- schools14_16cor %>% 
+  mutate("safety scores" = case_when(Safety.Rating == "VERY STRONG" ~ 5, 
+                                     Safety.Rating == "STRONG" ~ 4, 
+                                     Safety.Rating == "NEUTRAL" ~ 3, 
+                                     Safety.Rating == "WEAK" ~ 2,
+                                     Safety.Rating == "VERY WEAK" ~ 1, 
+                                     Safety.Rating == "NOT ENOUGH DATA" ~ 0))
+
+
+#remove latitude, longitude, name of school and categorical values
+schools14_16cor <-  schools14_16cor[,(-(1:8))]
+schools14_16cor <-  schools14_16cor[,(-(11:12))]
+
+
+#removing na values
+schools14_16cor <- na.omit(schools14_16cor)
+
+#alter labels so they are not too long
+colnames(schools14_16cor)[colnames(schools14_16cor)=="environment scores"] <- "envi"
+
+colnames(schools14_16cor)[colnames(schools14_16cor)=="instruction scores"] <- "inst"
+
+colnames(schools14_16cor)[colnames(schools14_16cor)=="leadership scores"] <- "lead"
+
+colnames(schools14_16cor)[colnames(schools14_16cor)=="collaboration scores"] <- "collab"
+
+colnames(schools14_16cor)[colnames(schools14_16cor)=="safety scores"] <- "safe"
+
+colnames(schools14_16cor)[colnames(schools14_16cor)=="family scores"] <- "fam"
+
+colnames(schools14_16cor)[colnames(schools14_16cor)=="Median.Income"] <- "income"
+
+colnames(schools14_16cor)[colnames(schools14_16cor)=="H.S.Graduation.."] <- "grad"
+
+colnames(schools14_16cor)[colnames(schools14_16cor)=="X2014.NWEA.Reading.Gr.3.Pct"] <- "2014 reading"
+
+colnames(schools14_16cor)[colnames(schools14_16cor)=="X2015.NWEA.Reading.Gr.3.Pct"] <- "2015 reading "
+
+colnames(schools14_16cor)[colnames(schools14_16cor)=="X2016.NWEA.Reading.Gr.3.Pct"] <- "2016 reading"
+
+colnames(schools14_16cor)[colnames(schools14_16cor)== "X2014.NWEA.Math.Gr.3.Pct"] <- "2014 math"
+
+colnames(schools14_16cor)[colnames(schools14_16cor)=="X2015.NWEA.Math.Gr.3.Pct"] <- "2015 math"
+
+colnames(schools14_16cor)[colnames(schools14_16cor)=="X2016.NWEA.Math.Gr.3.Pct"] <- "2016 Math"
+
+colnames(schools14_16cor)[colnames(schools14_16cor)=="Estimate.of.Pop..At.or.Above.Poverty.Line.who.Did.Not.Receive.Food.Stamps"] <- "no stamps"
+
+colnames(schools14_16cor)[colnames(schools14_16cor)=="Estimate.of.Aggregate.Earnings"] <- "earn"
+
+
+
+#creating correlation matrix
+corschools <- cor(schools14_16cor)
+
+#create correlation chart with colour
+corrplot(corschools)
+
+#create correlation chart with numbers
+corrplot(corschools, method = "number")
+
+#can see that:
+#for outcome variables:
+#reading and 2016: 
+#most correlated are: 
+#income, 2014 and 2015 math and reading scores, and to a lesser extent, safety and then family
+#income and earn are highly correlated
+# earn and no stamps are highly correlated
+#envi and instr are correlated, as is envi and safe
+#collab is correlated with fam, collab is also correlated with leadership
+#fam is corrleated with leadership
+#safety is correlated with instruction
+
