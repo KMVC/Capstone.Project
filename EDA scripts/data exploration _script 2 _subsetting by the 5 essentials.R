@@ -4,6 +4,8 @@
 
 #looking at schools that have the same score on all 5 essentials
 
+#load data and relevant libraries
+
 schools14_16 <- read.csv("schools14_16.csv", na = c("", "NA"))
 library(tidyverse)
 library(leaflet)
