@@ -426,7 +426,7 @@ corrplot(corschools, method = "number")
 
 #can see that:
 #for outcome variables:
-#reading and 2016: 
+#reading and math 2016: 
 #most correlated are: 
 #income, 2014 and 2015 math and reading scores, and to a lesser extent, safety and then family
 #income and earn are highly correlated
