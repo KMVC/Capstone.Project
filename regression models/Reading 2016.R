@@ -706,6 +706,7 @@ print(readrf_rmse_mtry2)
 #smallest RMSE from random forest and gradient boosting (for models not including reading variables from other years and math variables)
 # is for GB model that used 10,000 trees
 
+#overall smallest RMSE is for model built using random forest with a tuned mtry (and with math and other reading variables included)
 
 
 
