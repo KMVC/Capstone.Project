@@ -1,4 +1,4 @@
-#linear regression script for 2016 reading outcome variable
+# regression script for 2016 reading outcome variable
 
 #load relevant libraries and data
 schools14_16 <- read.csv("schools14_16.csv", na = c("", "NA"))
@@ -10,7 +10,7 @@ library(Metrics)
 
 
 
-#further preparing data for linear regression
+#further preparing data for regression
 #adding dummy variables for 5essentials 
 
 schools14_16lin <- schools14_16 %>% 
